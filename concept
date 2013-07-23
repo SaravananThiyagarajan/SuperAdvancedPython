@@ -1,0 +1,114 @@
+Super Advanced Python
+---
+- Closures
+    - A closure is a function that returns another function and closes
+        over a variable by scoping it to the outer function.
+
+- Decorators
+    - A decorator is a function that takes a function as an argument closes
+        over it with another function that has some additional code in it and
+        returns the closure as a result.
+    - The @ notation tells python how to call the decorator it is a shorthand
+        synatactic sugar
+
+- Generator Expressions
+    - The Yield Keyword
+
+- itertools Library
+    - These are all generators
+
+    - chain('abc', 'def') = 'abcdef' = 'abc' + 'def' -> returns iterator Generator
+        - Why? Because an iterator takes up less space in memory than a new list
+        - ['abc','def'] is a poor example (use chain for large lists)
+
+    - combinations(seq, number) - Does seq choose number
+        - builds combinations of the two iterables easily
+        - combinations('ABCD', 2) --> AB AC AD BC BD CD
+        - combinations(range(4), 3) --> 012 013 023 123
+
+    - permutations(seq, number) - Like combinations but order of returning sequence
+        matters.
+        - permutations('ABCD', 2) --> AB AC AD BA BC BD CA CB CD DA DB DC
+        - permutations(range(3)) --> 012 021 102 120 201 210
+
+    - compress(seq, selectors) - Returns items from seq when the corresponding
+        item in selectors returns True
+        - compress('ABCDEF', [1,0,1,0,1,1]) -> ['A', 'C', 'E', 'F']
+
+    - count(start, step) - Generates numbers starting at start and increases step
+        - count(10, 2) -> 10 12 14 16
+        - count(10, 3) -> 10 13 16 19
+
+    - cycle(seq) - Returns an item from sequence repeating back to the beginning
+        when the seq is exhausted
+        - cycle('ABC') -> A B C A B C A B C A
+        - cycle([10, 20, 30]) -> 10 20 30 10 20 30 10 20
+
+    - groupby(seq, keyfunc=None) - Takes a sorted sequence of data and returns a
+        dictionary of lists with the items grouped by the key function. If 
+        keyfunc is None then uses the identity of the item in the sequence to
+        group on.
+        - groupby('aaaabbbccd') -> {'a': ['a', 'a', 'a', 'a'], 'b'....}
+
+    - ifilter/ifilterfalse - like the built in filter but uses a generator instead
+        - ifilterfalse for items that test false
+
+    - imap - like the builtin map but uses a generator instead.
+    - izip - like the builtin zip but uses a genrator instead.
+    - izip_longest - like izip but fills in None for the shorter sequence
+    
+    - product - cartesian product of sequences
+        - product('ABCD', 'xy') --> Ax Ay Bx By Cx Cy Dx Dy
+        - product(range(2), repeat=3) --> 000 001 010 011 100 101 110 111
+
+- Basic Introspection - getattr, hasattr, setattr
+    - getattr(attr, object) - same as calling object.attr but allows you to
+        specify a string to get the attribute
+    - hasattr(attr, object) - checks to see if the object has attr as an attribute
+    - setattr(attr, object) - sets an attribute on an object
+
+- Understanding type
+    - remember type(MyObject) -> "MyObject"
+    - type creates classes under the hood
+    - type(class_name, parents[tuple], attributes[dict])
+    - AwesomeClass = type('MyShinyClass', (), {})
+    - Type is the root metaclass of Python
+        - a = 35
+        - a.__class__ = <type int>
+        - a.__class__.__class__ = <type 'type>
+
+- Metaclasses
+    - Metaclasses are the stuff that create classes. Can be any callable (Class or Function)
+    - Specifying a __metaclass__ on a classes
+    - class Foo:
+        __metaclass__ = Bar
+        - says use Bar to create Foo
+    - Creating the metaclass (type's function signature)
+        - Takes a name for the class, any parent classes it has, then the dictionary of attributes
+    - Doing it with a function...
+        - def my_meta_func(future_class_name, future_class_parents, future_class_attr):
+            ... do stuff
+            return type(future_class_name, future_class_parents, future_class_attr)
+
+    - Doing it with a class.
+        - Derive from type
+        - class MyMetaclass(type):
+            def __new__(klass, future_class_name, future_class_parents, future_class_attr):
+                return type.__new__(klass, future_class_name, future_class_parents, uppercase_attr)
+
+        - Use super
+        - class MyMetaclass(type):
+            def __new__(klass, name, parents, attrs):
+                return super(MyMetaclass, klass).__new__(klass, name, parents, attrs)
+
+    - Why use metaclasses? Dynamic creation of classes easily using type. Pair with
+        hasattr, setattr, getattr to dynamically set attributes or pass them through the 
+        3rd paramter of type. Used when building APIs. Flask and Django are built on top
+        of metaclasses.
+
+    - Rules for metaclasses. #1 Don't use them unless there is no other elegant solution. 
+        It is usually better to just monkey patch a class with setattr. Use decorators and
+        closures to change the behavior or patch functions. #2 If you are building a complicated 
+        an highly dynamic API then metaclasses may be for you. #3 - Make your metaclass
+        a class, not a function and dervie from type. It becomes really apparent and explicit when
+        you find a class dervied from type to know it is a metaclass.
