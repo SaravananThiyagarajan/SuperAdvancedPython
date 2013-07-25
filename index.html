@@ -38,7 +38,7 @@
             <div class="slides">
 				<section>
 					<h1>Super Advanced Python</h1>
-					<h3>This Talk Attracts Zombies</h3>
+					<h3>Warning: This Talk Attracts Zombies</h3>
 					<p>
 						<small>Presented by <a href="http://www.spkrbar.com/raymond">Raymond Chandler III</a> / <a href="http://twitter.com/raymondchandler">@raymondchandler</a></small>
 					</p>
@@ -50,77 +50,6 @@
 
                 <section>
                     <img src="logo.png" />
-                </section>
-
-                <section>
-                    <h1>What is this tutorial about?</h1>
-                </section>
-
-                <section>
-                    <h2>Introduction</h2>
-                    <ol>
-                        <li>Everything is an Object</li>
-                        <li>Introduction to Set and Category Theory</li>
-                    </ol>
-                </section>
-
-                <section>
-                    <h2>Operating on Sets</h2>
-                    <ol>
-                        <li>List/Dict Comprehensions</li>
-                        <li>Lambda Expressions</li>
-                        <li>Filter/Map/Reduce/Enumerate/Zip</li>
-                        <li>Any/All/Sum</li>
-                    </ol>
-                </section>
-
-                <section>
-                    <h2>Advanced Functions</h2>
-                    <ol>
-                        <li>Closures</li>
-                        <li>Decorators</li>
-                    </ol>
-                </section>
-
-                <section>
-                    <h2>Iterators vs Generators</h2>
-                    <ol>
-                        <li>Iterators vs Generators</li>
-                        <li>Yield Keyword</li>
-                        <li>Returning to the List comprehension</li>
-                        <li>Generator Expressions</li>
-                    </ol>
-                </section>
-
-                <section>
-                    <h2>The Itertools Library</h2>
-                    <ol>
-                        <li>chain(*seq)</li>
-                        <li>cominations(seq, choice)</li>
-                        <li>permutations(seq, choice)</li>
-                        <li>compress(seq, selectors)</li>
-                    </ol>
-                </section>
-
-                <section>
-                    <h2>Itertools (cont.)</h2>
-                    <ol>
-                        <li>count(start, step)</li>
-                        <li>cycle(seq)</li>
-                        <li>groupby(seq, key=)</li>
-                        <li>ifilter/imap/izip</li>
-                        <li>product</li>
-                    </ol>
-                </section>
-
-                <section>
-                    <h2>Introspection and Metaprogramming</h2>
-                    <ol>
-                        <li>What is Metaprogramming?</li>
-                        <li>getattr/hasattr/setattr</li>
-                        <li>Understanding type</li>
-                        <li>Metaclasses</li>
-                    </ol>
                 </section>
 
                 <section>
@@ -137,10 +66,6 @@
                 </section>
 
                 <section>
-                    <h1>A collection of objects.</h1>
-                </section>
-
-                <section>
                     <h1>Critical Point #2</h1>
                     <h2>Everything in Python can be grouped into a set!</h2>
                 </section>
@@ -154,19 +79,78 @@
                 </section>
 
                 <section>
-                    <h2>Set Concepts</h2>
-
-                    <ul>
-                        <li>Union - A ∪ B - Member of A, B, or Both</li>
-                        <li>Intersection - A ∩ B - Member of Both</li>
-                        <li>Set Difference - A \ B - Member of A, Not Member of B</li>
-                        <li>Symmetric Difference - A △  B or A ⊖ B - Member of A or B but NOT Both</li>
-                        <li>Catesian Product - A × B - All possible pairs</li>
-                    </ul>
+                    <h1>Basic Set Concepts</h1>
                 </section>
 
                 <section>
-                    <h1>In Python Sets are Tuples or Lists</h1>
+                    <h1>Union A ∪ B</h1>
+                    <h2>If member of A, B, or Both</h2>
+                    <pre><code data-trim class="python">
+list_a = ['a', 'b', 'c']
+list_b = ['b', 'd', 'c']
+
+print(set(a) | set(b))
+&gt;&gt;&gt; set(['a', 'c', 'b', 'd'])
+					</code></pre>
+                </section>
+
+                <section>
+                    <h1>Intersect A n B</h1>
+                    <h2>Only if member of Both</h2>
+                    <pre><code data-trim class="python">
+list_a = ['a', 'b', 'c']
+list_b = ['b', 'd', 'c']
+
+print(set(a) &amp; set(b))
+&gt;&gt;&gt; set(['c', 'b'])
+					</code></pre>
+                </section>
+
+                <section>
+                    <h1>Set Diff A \ B</h1>
+                    <h2>If it's a member of A, but not Member of B</h2>
+                    <pre><code data-trim class="python">
+s.symmetric_difference(t)	s ^ t
+
+list_a = ['a', 'b', 'c']
+list_b = ['b', 'd', 'c']
+
+print(set(a) - set(b))
+&gt;&gt;&gt; set(['a'])
+
+print(set(b) - set(a))
+&gt;&gt;&gt; set(['d'])
+					</code></pre>
+                </section>
+
+                <section>
+                    <h1>Symmetric Diff</h1>
+                    <h1>A △  B or A ⊖ B</h1>
+                    <h2>If member of A or B but NOT Both (XOR)</h2>
+                    <pre><code data-trim class="python">
+list_a = ['a', 'b', 'c']
+list_b = ['b', 'd', 'c']
+
+print(set(a) ^ set(b))
+&gt;&gt;&gt; set(['a', 'd'])
+					</code></pre>
+                </section>
+
+                <section>
+                    <h1>Cartesian Product - A x B</h1>
+                    <h2>Pairs the first element of A with the first element of B</h2>
+                    <pre><code data-trim class="python">
+from itertools import product
+list_a = ['a', 'b', 'c']
+list_b = ['b', 'd', 'c']
+
+print(list(product(list_a, list_b)))
+&gt;&gt;&gt; [('a', 'b'), ('a', 'd'), ('a', 'c'), ('b', 'b'), ...]
+					</code></pre>
+                </section>
+
+                <section>
+                    <h1>Think of all Python collections as Sets</h1>
                 </section>
 
                 <section>
@@ -200,6 +184,10 @@
                 </section>
 
                 <section>
+                    <img src="zombie_0.jpg" />
+                </section>
+
+                <section>
                     <h1>ACT 2</h1>
                 </section>
 
@@ -209,7 +197,7 @@
                     <pre><code data-trim class="python">
 my_list = [1, 2, 3, 4, 5, 6]
 print([x * 2 for x in my_list])
->>> [2, 4, 6, 8, 10, 12]
+&gt;&gt;&gt; [2, 4, 6, 8, 10, 12]
 					</code></pre>
                 </section>
 
@@ -220,7 +208,7 @@ print([x * 2 for x in my_list])
 my_dict = {'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6}
 result = {k: v * 2 for k, v in my_dict}
 print(result)
->>> {'a': 2, 'b': 4, 'c': 6, 'd': 8, 'e': 10, 'f': 12}
+&gt;&gt;&gt; {'a': 2, 'b': 4, 'c': 6, 'd': 8, 'e': 10, 'f': 12}
                     </code></pre>
                 </section>
 
@@ -229,13 +217,13 @@ print(result)
 
                     <pre><code data-trim class="python">
 print(result.iterkeys())
->>> ['a', 'b', 'c', 'd', 'e', 'f']
+&gt;&gt;&gt; ['a', 'b', 'c', 'd', 'e', 'f']
 
 print(result.itervalues())
->>> [2, 4, 6, 8, 10, 12]
+&gt;&gt;&gt; [2, 4, 6, 8, 10, 12]
 
 print(result.iteritems())
->>> [('a', 2), ('b', 4), ('c', 6), ('d', 8), ('e', 10), ('f': 12)]
+&gt;&gt;&gt; [('a', 2), ('b', 4), ('c', 6), ('d', 8), ('e', 10), ('f': 12)]
                     </code></pre>
                 </section>
 
@@ -247,11 +235,11 @@ def my_func(item):
     return item * 2
 
 print([my_func(x) for x in my_list])
->>> [2, 4, 6, 8, 10, 12]
+&gt;&gt;&gt; [2, 4, 6, 8, 10, 12]
 
 other_func = lambda x: x * 2
 print([other_func(x) for x in my_list])
->>> [2, 4, 6, 8, 10, 12]
+&gt;&gt;&gt; [2, 4, 6, 8, 10, 12]
                     </code></pre>
                 </section>
 
@@ -261,13 +249,13 @@ print([other_func(x) for x in my_list])
 my_first_list = ['a', 'b', 'c', 'd', 'e']
 my_second_list = [1, 2, 3, 4, 5]
 print(zip(my_first_list, my_second_list))
->>> [('a', 1), ('b', 2), ('c', 3), ('d', 4), ('e', 5)]
+&gt;&gt;&gt; [('a', 1), ('b', 2), ('c', 3), ('d', 4), ('e', 5)]
 
 print(enumerate(my_first_list))
->>> [(0, 'a'), (1, 'b'), (2, 'c'), (3, 'd'), (4, 'e')]
+&gt;&gt;&gt; [(0, 'a'), (1, 'b'), (2, 'c'), (3, 'd'), (4, 'e')]
 
 print(enumerate(my_first_list, 3))
->>> [(3, 'a'), (4, 'b'), (5, 'c'), (6, 'd'), (7, 'e')]
+&gt;&gt;&gt; [(3, 'a'), (4, 'b'), (5, 'c'), (6, 'd'), (7, 'e')]
                     </code></pre>
                 </section>
 
@@ -277,11 +265,11 @@ print(enumerate(my_first_list, 3))
 my_first_list = ['a', 'b', 'c', 'd', 'e']
 my_second_list = [1, 2, 3, 4, 5]
 print(zip(my_first_list, my_second_list))
->>> [('a', 1), ('b', 2), ('c', 3), ('d', 4), ('e', 5)]
+&gt;&gt;&gt; [('a', 1), ('b', 2), ('c', 3), ('d', 4), ('e', 5)]
 
 my_second_list = ['z', 'y', 'x', 'w', 'v']
 print(zip(my_first_list, my_second_list))
->>> [('a', 'z'), ('b', 'y'), ('c', 'x'), ('d', 'w'), ('e', 'v')]
+&gt;&gt;&gt; [('a', 'z'), ('b', 'y'), ('c', 'x'), ('d', 'w'), ('e', 'v')]
                     </code></pre>
                 </section>
 
@@ -292,11 +280,11 @@ my_first_list = "abcde"
 my_second_list = "zyxwv"
 result = zip(my_first_list, my_second_list)
 print(result)
->>> [('a', 'z'), ('b', 'y'), ('c', 'x'), ('d', 'w'), ('e', 'v')]
+&gt;&gt;&gt; [('a', 'z'), ('b', 'y'), ('c', 'x'), ('d', 'w'), ('e', 'v')]
 
 result2 = [''.join(x) for x in result]
 print(result2)
->>> ['az', 'by', 'cx', 'dw', 'ev']
+&gt;&gt;&gt; ['az', 'by', 'cx', 'dw', 'ev']
                     </code></pre>
                 </section>
 
@@ -305,10 +293,10 @@ print(result2)
                     <pre><code data-trim class="python">
 result = zip("abcde", "zyxwv")
 print(dict(result))
->>> {'a': 'z', 'c': 'x', 'b': 'y', 'd': 'w'}
+&gt;&gt;&gt; {'a': 'z', 'c': 'x', 'b': 'y', 'd': 'w'}
 
 print(dict([(k * 3, v) for k, v in result]))
->>> {'aaa': 'z', 'bbb': 'y', 'ccc': 'x', 'ddd': 'w'}
+&gt;&gt;&gt; {'aaa': 'z', 'bbb': 'y', 'ccc': 'x', 'ddd': 'w'}
                     </code></pre>
                 </section>
 
@@ -317,10 +305,10 @@ print(dict([(k * 3, v) for k, v in result]))
                     <pre><code data-trim class="python">
 my_list = [1, 2, 3, 4, 5, 6]
 print([x for x in my_list if x % 2 == 0])
->>> [2, 4, 6]
+&gt;&gt;&gt; [2, 4, 6]
 
 print(filter(lambda x: x % 2 == 0, my_list))
->>> [2, 4, 6]
+&gt;&gt;&gt; [2, 4, 6]
                     </code></pre>
                 </section>
 
@@ -329,14 +317,14 @@ print(filter(lambda x: x % 2 == 0, my_list))
                     <pre><code data-trim class="python">
 my_list = [True, False, False, False]
 print(any(my_list))
->>> True
+&gt;&gt;&gt; True
 
 print(all(my_list))
->>> False
+&gt;&gt;&gt; False
 
 my_list = [True, True, True]
 print(all(my_list))
->>> True
+&gt;&gt;&gt; True
                     </code></pre>
                 </section>
 
@@ -345,13 +333,13 @@ print(all(my_list))
                     <pre><code data-trim class="python">
 my_list = range(1, 7)
 print(my_list)
->>> [1, 2, 3, 4, 5, 6]
+&gt;&gt;&gt; [1, 2, 3, 4, 5, 6]
 
 print([x * 2 for x in my_list])
->>> [2, 4, 6, 8, 10, 12]
+&gt;&gt;&gt; [2, 4, 6, 8, 10, 12]
 
 print(map(lambda x: x * 2, my_list))
->>> [2, 4, 6, 8, 10, 12]
+&gt;&gt;&gt; [2, 4, 6, 8, 10, 12]
                     </code></pre>
                 </section>
 
@@ -362,13 +350,13 @@ val = 0
 for x in range(1, 7):
     val += my_list
 print(val)
->>> 21
+&gt;&gt;&gt; 21
 
 print(reduce(lambda x, y: x + y, range(1, 7)))
->>> 21
+&gt;&gt;&gt; 21
 
 print(reduce(lambda x, y: x * y, range(1, 7)))
->>> 720
+&gt;&gt;&gt; 720
                     </code></pre>
                 </section>
 
@@ -376,11 +364,15 @@ print(reduce(lambda x, y: x * y, range(1, 7)))
                     <h2>The "sum" builtin</h2>
                     <pre><code data-trim class="python">
 print(reduce(lambda x, y: x + y, range(1, 7)))
->>> 21
+&gt;&gt;&gt; 21
 
 print(sum(range(1,7)))
->>> 21
+&gt;&gt;&gt; 21
                     </code></pre>
+                </section>
+
+                <section>
+                    <img src="zombie_2.jpg" />
                 </section>
 
                 <section>
@@ -403,7 +395,7 @@ def multiply_numbers(x, y):
     return x * y
 
 print(multiply_numbers(3, 5))
->>> 15
+&gt;&gt;&gt; 15
                     </code></pre>
                 </section>
 
@@ -425,9 +417,9 @@ def mult_closure(x):
 mult_by_three = mult_closure(3)
 
 print(mult_by_three(5))
->>> 15
+&gt;&gt;&gt; 15
 print(mult_by_three(10))
->>> 30
+&gt;&gt;&gt; 30
                     </code></pre>
                 </section>
 
@@ -438,9 +430,9 @@ print(mult_by_three(10))
 mult_by_ten = mult_closure(10) 
 
 print(mult_by_ten(5))
->>> 50
+&gt;&gt;&gt; 50
 print(mult_by_ten(15))
->>> 150
+&gt;&gt;&gt; 150
                     </code></pre>
                 </section>
 
@@ -461,7 +453,7 @@ def bad_function_from_library(some_attr): #You didn't write this.
     some_attr / 0 #Oh noes!
 
 print(bad_function_from_library(10))
->>> ZeroDivisionError: integer division or modulo by zero 
+&gt;&gt;&gt; ZeroDivisionError: integer division or modulo by zero 
                     </code></pre>
                 </section>
 
@@ -480,7 +472,7 @@ def dont_panic_closure(bad_func):
 
 catch_it = dont_panic_closure(bad_function_from_library)
 print(catch_it(10))
->>> The bad function unleashed Zombies!
+&gt;&gt;&gt; The bad function unleashed Zombies!
                     </code></pre>
                 </section>
 
@@ -509,7 +501,7 @@ def bad_function_i_wrote(some_attr): #You totally wrote this.
     some_attr / 0 #Oh noes!
 
 print(bad_function_i_wrote(10))
->>> The bad function unleashed Zombies!
+&gt;&gt;&gt; The bad function unleashed Zombies!
                     </code></pre>
                 </section>
 
@@ -531,9 +523,13 @@ def my_func(x, y):
     return x * y
 
 print(my_func(10, 15))
->>> Arguments were (10, 15), {}
->>> 150
+&gt;&gt;&gt; Arguments were (10, 15), {}
+&gt;&gt;&gt; 150
                     </code></pre>
+                </section>
+
+                <section>
+                    <img src="zombie_3.jpg" />
                 </section>
 
                 <section>
@@ -561,11 +557,11 @@ stepper = step(10, 2)
                     <h2>A basic generator (cont.)</h2>
                     <pre><code data-trim class="python">
 print(stepper.next())
->>> 10
+&gt;&gt;&gt; 10
 print(stepper.next())
->>> 12
+&gt;&gt;&gt; 12
 print(stepper.next())
->>> 14
+&gt;&gt;&gt; 14
                     </code></pre>
                 </section>
 
@@ -582,7 +578,7 @@ print(stepper.next())
                     <pre><code data-trim class="python">
 def step(start=0, step=1, end=50):
     _start = start
-    while _start < end:
+    while _start &lt; end:
         yield _start
         _start += step
                     </code></pre>
@@ -593,10 +589,10 @@ def step(start=0, step=1, end=50):
                     <pre><code data-trim class="python">
 stepper = step(10, 10)
 print(list(stepper))
->>> [10, 20, 30, 40]
+&gt;&gt;&gt; [10, 20, 30, 40]
 stepper = step(30, 5, 60)
 print(list(stepper))
->>> [30, 35, 40, 45, 50, 55]
+&gt;&gt;&gt; [30, 35, 40, 45, 50, 55]
                     </code></pre>
                 </section>
 
@@ -605,10 +601,10 @@ print(list(stepper))
                     <pre><code data-trim class="python">
 stepper = (x * 5 for x in range(0, 10))
 print(list(stepper))
->>> [0, 5, 10, 15, 20, 25, 30, 35, 40, 45]
+&gt;&gt;&gt; [0, 5, 10, 15, 20, 25, 30, 35, 40, 45]
 stepper = (x ** 2 for x in range(0, 5))
 print(list(stepper))
->>> [0, 1, 4, 9, 16]
+&gt;&gt;&gt; [0, 1, 4, 9, 16]
                     </code></pre>
                 </section>
 
@@ -626,6 +622,10 @@ print(list(stepper))
                 </section>
 
                 <section>
+                    <img src="zombie_4.jpg" />
+                </section>
+
+                <section>
                     <h1>ACT 5</h1>
                 </section>
 
@@ -640,7 +640,7 @@ from itertools import chain
 list_a = ['a', 'b', 'c']
 list_b = range(1,4)
 print(list(chain(list_a, list_b))
->>> ['a', 'b', 'c', 1, 2, 3]
+&gt;&gt;&gt; ['a', 'b', 'c', 1, 2, 3]
                     </code></pre>
                 </section>
 
@@ -651,11 +651,11 @@ from itertools import combinations
 
 my_list = 'abc'
 print(list(combinations(my_list, 2))
->>> [('a', 'b'), ('a', 'c'), ('b', 'c')]
+&gt;&gt;&gt; [('a', 'b'), ('a', 'c'), ('b', 'c')]
 
 my_list = range(1,6)
 print(list(combinations(my_list, 4))
->>> [(1, 2, 3, 4), (1, 2, 3, 5), (1, 2, 4, 5), (1, 3, 4, 5), (2, 3, 4, 5)]
+&gt;&gt;&gt; [(1, 2, 3, 4), (1, 2, 3, 5), (1, 2, 4, 5), (1, 3, 4, 5), (2, 3, 4, 5)]
                     </code></pre>
                 </section>
 
@@ -666,15 +666,15 @@ from itertools import permutations
 
 my_list = 'abc'
 print(list(permutations(my_list, 2))
->>> [('a', 'b'), ('a', 'c'), ('b', 'a'), 
->>>     ('b', 'c'), ('c', 'a'), ('c', 'b')]
+&gt;&gt;&gt; [('a', 'b'), ('a', 'c'), ('b', 'a'), 
+&gt;&gt;&gt;     ('b', 'c'), ('c', 'a'), ('c', 'b')]
 
 my_list = range(1,6)
 print(list(permutations(my_list, 2))
->>> [(1, 2), (1, 3), (1, 4), (1, 5), (2, 1), 
->>>     (2, 3), (2, 4), (2, 5), (3, 1), (3, 2),
->>>     (3, 4), (3, 5), (4, 1), (4, 2), (4, 3), 
->>>     (4, 5), (5, 1), (5, 2), (5, 3), (5, 4)]
+&gt;&gt;&gt; [(1, 2), (1, 3), (1, 4), (1, 5), (2, 1), 
+&gt;&gt;&gt;     (2, 3), (2, 4), (2, 5), (3, 1), (3, 2),
+&gt;&gt;&gt;     (3, 4), (3, 5), (4, 1), (4, 2), (4, 3), 
+&gt;&gt;&gt;     (4, 5), (5, 1), (5, 2), (5, 3), (5, 4)]
                     </code></pre>
                 </section>
 
@@ -687,10 +687,10 @@ from itertools import compress
 my_list = 'abcdef'
 my_slectors = [1,0,1,1,0,1]
 print(list(compress(my_list, my_selectors))
->>> ['a', 'c', 'd', 'e', 'f']
+&gt;&gt;&gt; ['a', 'c', 'd', 'e', 'f']
 
 print([v for v, s in zip(my_list, my_selectors) if s])
->>> ['a', 'c', 'd', 'e', 'f']
+&gt;&gt;&gt; ['a', 'c', 'd', 'e', 'f']
                     </code></pre>
                 </section>
 
@@ -702,9 +702,9 @@ from itertools import count
 counter = count(1, 5)
 for l in 'abc':
     print(' '.join(l, str(counter.next())))
->>> a 1
->>> b 6
->>> c 11
+&gt;&gt;&gt; a 1
+&gt;&gt;&gt; b 6
+&gt;&gt;&gt; c 11
                     </code></pre>
                 </section>
 
@@ -715,7 +715,7 @@ from itertools import cycle
 
 i_want_to_ride_my_bi = cycle('abc123')
 print([i_want_to_ride_my_bi.next() for i in range(0,10)])
->>> ['a', 'b', 'c', 1, 2, 3, 'a', 'b', 'c']
+&gt;&gt;&gt; ['a', 'b', 'c', 1, 2, 3, 'a', 'b', 'c']
                     </code></pre>
                 </section>
 
@@ -726,9 +726,9 @@ from itertools import groupby
 
 my_list='aaaaabbbbcccdd' #sorted
 print(list(groupby(my_list)))
->>> [('a', <itertools._grouper object at 0x10fd76410>), 
->>>     ('b', <itertools._grouper object at 0x10fd76450>), 
->>>     ...
+&gt;&gt;&gt; [('a', &lt;itertools._grouper object at 0x10fd76410&gt;), 
+&gt;&gt;&gt;     ('b', &lt;itertools._grouper object at 0x10fd76450&gt;), 
+&gt;&gt;&gt;     ...
                     </code></pre>
                 </section>
             
@@ -736,10 +736,10 @@ print(list(groupby(my_list)))
                     <h2>groupby (cont.)</h2>
                     <pre><code data-trim class="python">
 print({k:list(v) for k, v in groupby(my_list)})
->>> {'a': ['a', 'a', 'a', 'a', 'a'], 
->>>     'c': ['c', 'c', 'c'], 
->>>     'b': ['b', 'b', 'b', 'b'],
->>>     'd': ['d', 'd']}
+&gt;&gt;&gt; {'a': ['a', 'a', 'a', 'a', 'a'], 
+&gt;&gt;&gt;     'c': ['c', 'c', 'c'], 
+&gt;&gt;&gt;     'b': ['b', 'b', 'b', 'b'],
+&gt;&gt;&gt;     'd': ['d', 'd']}
                     </code></pre>
                 </section>
 
@@ -753,9 +753,9 @@ my_list = [
 
 print({k:list(v) for k, v in groupby(my_list, 
         key=lambda x: x['id')})
->>> {1: [{'id': 1, 'name': 'raymond'}, 
->>>         {'id': 1, 'name': 'bob'}],
->>>  2: [{'id': 2, 'name': 'sue'}]}
+&gt;&gt;&gt; {1: [{'id': 1, 'name': 'raymond'}, 
+&gt;&gt;&gt;         {'id': 1, 'name': 'bob'}],
+&gt;&gt;&gt;  2: [{'id': 2, 'name': 'sue'}]}
                     </code></pre>
                 </section>
 
@@ -779,12 +779,12 @@ my_list = [
                 <section>
                     <h2>groupby (cont.)</h2>
                     <pre><code data-trim class="python">
->>> [{ 'email': 'raymond@spkrbar.com',
->>>    'id': 1,
->>>    'name': 'raymond'}, 
->>>  { 'email': 'peggy@sue.com',
->>>     'id': 2,
->>>     'name': 'sue'}]
+&gt;&gt;&gt; [{ 'email': 'raymond@spkrbar.com',
+&gt;&gt;&gt;    'id': 1,
+&gt;&gt;&gt;    'name': 'raymond'}, 
+&gt;&gt;&gt;  { 'email': 'peggy@sue.com',
+&gt;&gt;&gt;     'id': 2,
+&gt;&gt;&gt;     'name': 'sue'}]
                     </code></pre>
                 </section>
 
@@ -796,17 +796,20 @@ list_a = 'abc'
 list_b = [1, 2]
 
 print(list(product(list_a, list_b)))
->>> [('a', '1'), ('a', '2'), ('b', '1'), ('b', '2'), ('c', '1'), ('c', '2')]
+&gt;&gt;&gt; [('a', '1'), ('a', '2'), ('b', '1'), ('b', '2'), ('c', '1'), ('c', '2')]
 
 print({x[0]:x[1] for x in product(list_a, list_b)})
->>> {'a': '2', 'c': '2', 'b': '2'}
+&gt;&gt;&gt; {'a': '2', 'c': '2', 'b': '2'}
                     </code></pre>
                 </section>
 
                 <section>
                     <h2>ifilter/imap/izip</h2>
                     <h4>Works exactly like filter/map/zip expect for one thing. What is it?</h4>
-                    </code></pre>
+                </section>
+
+                <section>
+                    <img src="zombie_5.jpg" />
                 </section>
                     
                 <section>
@@ -814,17 +817,262 @@ print({x[0]:x[1] for x in product(list_a, list_b)})
                 </section>
 
                 <section>
-                    <h2>Introspection and Metaprogramming</h2>
-                    <ol>
-                        <li>What is Metaprogramming?</li>
-                        <li>getattr/hasattr/setattr</li>
-                        <li>Understanding type</li>
-                        <li>Metaclasses</li>
-                    </ol>
+                    <h2>What is metaprogramming?</h2>
                 </section>
 
                 <section>
-                    <h1>Whew...</h1>
+                    <h2>What is introspection?</h2>
+                </section>
+
+                <section>
+                    <h2>Consider this</h2>
+                    <pre><code data-trim class="python">
+class Swallow:
+    def __init__(self, airspeed, color):
+        self.airspeed = airspeed
+        self.color = color
+
+unladen_bird = Swallow(34.2, 'black')
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>getattr</h2>
+
+                    <pre><code data-trim class="python">
+#Notice the attribute is a string
+print(getattr(unladen_bird, 'airspeed'))
+&gt;&gt;&gt; 34.2
+print(getattr(unladen_bird, 'color'))
+&gt;&gt;&gt; 'black'
+print(getattr(unladen_bird, 'wingspan'))
+&gt;&gt;&gt; None
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>hasattr</h2>
+
+                    <pre><code data-trim class="python">
+#Notice the attribute is a string
+print(hasattr(unladen_bird, 'airspeed'))
+&gt;&gt;&gt; True
+print(hasattr(unladen_bird, 'wingspan'))
+&gt;&gt;&gt; False
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>setattr</h2>
+
+                    <pre><code data-trim class="python">
+#Notice the attribute is a string
+print(getattr(unladen_bird, 'airspeed'))
+&gt;&gt;&gt; 34.2
+setattr(unladen_bird, 'airspeed', 42)
+print(getattr(unladen_bird, 'airspeed'))
+&gt;&gt;&gt; 42
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>setattr (cont.)</h2>
+
+                    <pre><code data-trim class="python">
+print(getattr(unladen_bird, 'wingspan'))
+&gt;&gt;&gt; None
+setattr(unladen_bird, 'wingspan', 14)
+&gt;&gt;&gt; False
+print(getattr(unladen_bird, 'wingspan'))
+&gt;&gt;&gt; 14
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h1>The almighty type()</h1>
+                </section>
+
+                <section>
+                    <h2>Remember this?</h2>
+                    <pre><code data-trim class="python">
+print(type(unladen_bird))
+&gt;&gt;&gt; &lt;type 'instance'&gt;
+
+print(type(Swallow))
+&gt;&gt;&gt; &lt;type 'classobj'&gt;
+print(Swallow.__class__)
+&gt;&gt;&gt; &lt;type 'classobj'&gt;
+
+print(Swallow)
+&gt;&gt;&gt; &lt;class __main__.Swallow at 0x1062a60b8&gt;
+print(unladen_bird.__class__)
+&gt;&gt;&gt; &lt;class __main__.Swallow at 0x1062a60b8&gt;
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>What about this?</h2>
+                    <pre><code data-trim class="python">
+print(type(unladen_bird.__class__))
+&gt;&gt;&gt; &lt;type 'classobj'&gt;
+
+print(type(unladen_bird.__class)).__class__
+&gt;&gt;&gt; &lt;type 'type'&gt; 
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h1>Wait... wat?</h1>
+                </section>
+
+                <section>
+                    <h2>Huh?</h2>
+                    <pre><code data-trim class="python">
+print(type((35).__class__).__class__)
+&gt;&gt;&gt; &lt;type 'type'&gt; 
+
+print(type(('abc').__class__).__class__)
+&gt;&gt;&gt; &lt;type 'type'&gt; 
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Oh, I know. Because of the type keyword?</h2>
+                    <pre><code data-trim class="python">
+print((35).__class__.__class__)
+&gt;&gt;&gt; &lt;type 'type'&gt; 
+
+print(('abc').__class__.__class__)
+&gt;&gt;&gt; &lt;type 'type'&gt; 
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h1>Wat?</h1>
+                </section>
+
+                <section>
+                    <h1>Critical Point #1</h1>
+                    <h2>Everything is an Object</h2>
+                </section>
+
+                <section>
+                    <h1>Corollary</h1>
+                    <h2>type() is Python's God Object!</h2>
+                </section>
+
+                <section>
+                    <h2>type(class_name, parents[tuple], attributes[dict])</h2>
+                </section>
+
+                <section>
+                    <h1>type() creates everything</h1>
+                </section>
+
+                <section>
+                    <h2>Lets create a class</h2>
+                    <pre><code data-trim class="python">
+Bird = type('UnladenSwallow', (), {'airspeed': 42, 'wingspan': 15})
+my_bird = Bird()
+
+print(type(Bird))
+&gt;&gt;&gt; &lt;type 'type'&gt;
+print(type(my_bird))
+&gt;&gt;&gt; &lt;class '__main__.UnladenSwallow'&gt;
+
+print(my_bird.airspeed)
+&gt;&gt;&gt; 42
+print(hasattr(my_bird, 'wingspan'))
+&gt;&gt;&gt; True
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h1>What is a MetaClass?</h1>
+                </section>
+
+                <section>
+                    <h1>Here's a hint</h1>
+                    <h2>type() is a MetaClass</h2>
+                </section>
+
+                <section>
+                    <h1>More specifically...</h1>
+                </section>
+
+                <section>
+                    <h2>A MetaClass is any callable(function or class) that implements type's function signature</h2>
+                </section>
+
+                <section>
+                    <h2>Here are a couple Metaclasses</h2>
+                    <pre><code data-trim class="python">
+def my_meta_class(class_name, class_parents, class_attrs):
+    ... do stuff
+    return type(class_name, class_parents, class_attrs)
+
+class MyMetaclass(type):
+    def __new__(klass, class_name, class_parents, class_attrs):
+        ... do stuff
+        return type.__new__(klass, class_name, 
+            class_parents, class_attrs)
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>What can do you in the '...do stuff' part?</h2>
+
+                    <ul>
+                        <li>Look at the attributes</li>
+                        <li>Set new attributes</li>
+                        <li>Create functions dynamically</li>
+                        <li>Traverse the parent classes</li>
+                        <li>Change values in the class</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h1>type() creates the class not the instance.</h1>
+                </section>
+
+                <section>
+                    <h2>So what does this do?</h2>
+                    <pre><code data-trim class="python">
+class ZombieKiller:
+    __metaclass__ = MyMetaClass
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Hey Python, instead of using type, use this thing instead!</h2>
+                </section>
+
+                <section>
+                    <h1>Some rules...</h1>
+                </section>
+
+                <section>
+                    <h2>#1 Don't use them...ever (unless you have to).</h2>
+                </section>
+
+                <section>
+                    <h2>#2 If you are building a complicated and highly dynamic API then metaclasses may be for you.</h2>
+                </section>
+
+                <section>
+                    <h2>#3 Make your metaclass a class, not a function and derive from type.</h2>
+                </section>
+
+                <section>
+                    <h1>Whew!...</h1>
+                </section>
+
+                <section>
+                    <h1>Oh shit...</h1>
+                </section>
+
+                <section>
+                    <img src="zombie_6.jpg" />
                 </section>
 
                 <section>
